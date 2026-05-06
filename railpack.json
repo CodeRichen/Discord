@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.railpack.com",
   "deploy": {
-    "startCommand": "python 身分組.py"
+    "startCommand": "python main.py"
   }
 }

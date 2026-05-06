@@ -27,6 +27,15 @@ def can_manage_role(guild: discord.Guild, target_role: discord.Role) -> bool:
 
     return bot_member.guild_permissions.manage_roles and target_role < bot_member.top_role
 
+
+def get_bot_token() -> str:
+    token = os.getenv("DISCORD_BOT_TOKEN") or os.getenv("DISCORD_TOKEN") or os.getenv("TOKEN")
+    if not token:
+        raise SystemExit(
+            "缺少 Discord token。請在部署環境設定 DISCORD_BOT_TOKEN，或改用 DISCORD_TOKEN / TOKEN。"
+        )
+    return token
+
 # 🔹 按鈕 UI
 class RoleView(View):
     def __init__(self):
@@ -115,4 +124,11 @@ async def on_ready():
 async def role(ctx):
     await ctx.send("請選擇你的組別：", view=RoleView())
 
-bot.run(os.environ["DISCORD_BOT_TOKEN"])
+
+
+def main():
+    bot.run(get_bot_token())
+
+
+if __name__ == "__main__":
+    main()
